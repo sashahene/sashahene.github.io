@@ -11,35 +11,62 @@
     <link rel="stylesheet" href="../../styles.css" />
   </head>
   <body>
+    <header class="site-header">
+      <nav class="wrap site-nav" aria-label="Primary">
+        <a class="logo" href="../../">AH.</a>
+        <div class="nav-links">
+          <div class="nav-menu">
+            <a class="label nav-link" href="../../#work" aria-haspopup="true">Work</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="../safety-bracelet/">
+                  <span class="nav-dropdown-title">Safety Bracelet</span>
+                </a>
+              </li>
+              <li>
+                <a href="../atlas-light-tower/">
+                  <span class="nav-dropdown-title">ATLAS Light Tower</span>
+                </a>
+              </li>
+              <li>
+                <span class="is-soon">
+                  <span class="nav-dropdown-title">Glider Design</span>
+                </span>
+              </li>
+              <li>
+                <span class="is-soon">
+                  <span class="nav-dropdown-title">ESP32 Animated Display</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <a class="label nav-link" href="../../#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
     <main class="project-page">
       <div class="wrap">
         <header class="project-head appear">
           <p class="label"><a class="back" href="../../">Back to portfolio</a></p>
           <h1 class="display">Safety Bracelet – in works</h1>
           <p class="lede">Wearable Technology / Product Innovation</p>
-          <div class="meta">
+          <div class="meta is-stacked">
             <p class="label">2026–Present</p>
             <p class="label">Chief Technology Officer (CTO)</p>
-          </div>
-          <div class="render">
-            <img
-              src="../../images/geen-3400-team.jpg"
-              alt="Illustration of the GEEN 3400 Innovation and Invention team gathered around the safety bracelet prototype, which reads ID OK."
-            />
           </div>
         </header>
 
         <section class="block appear">
           <h2 class="heading">Project Overview</h2>
           <p class="lede">
-            Our mission is to create a wearable safety device, tailored to young
-            adults, in hopes that it will create a safer environment while going
-            out with friends.
+            We're developing a wearable safety device for young adults that
+            monitors heart rate and movement to detect potential safety concerns
+            and instantly alert a trusted contact.
           </p>
         </section>
 
-        <section class="block appear">
-          <h2 class="heading">Design Process</h2>
+        <section class="block is-tucked appear">
+          <p class="lede">Design Process</p>
           <div class="flow-wrap">
             <ol class="flow">
               <li>
@@ -84,8 +111,10 @@
             <a class="pitch-link" href="../../research/library/index.html#research" target="_blank" rel="noopener">Open the research library ↗</a>
           </p>
           <p class="lede">
-            Personally created an AI-based research library to help organize
-            the team's prototype plan.
+            I designed an AI-assisted research library that catalogs
+            peer-reviewed studies on transdermal alcohol sensing and wearable
+            monitoring, helping the team turn research into prototype
+            requirements.
           </p>
         </section>
 
@@ -130,6 +159,48 @@
             community-focused wearable that helps friends stay connected and
             look out for each other on nights out.
           </p>
+          <div class="flow-wrap">
+            <ol class="flow" aria-label="How Clēar works">
+              <li>
+                <div class="flow-step" data-loop="end">
+                  <p class="label">01</p>
+                  <p class="lede">Monitor</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step">
+                  <p class="label">02</p>
+                  <p class="lede">Heart rate</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step">
+                  <p class="label">03</p>
+                  <p class="lede">Movement</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step">
+                  <p class="label">04</p>
+                  <p class="lede">Analyze</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step" data-loop="start">
+                  <p class="label">05</p>
+                  <p class="lede">Safety concern?</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step">
+                  <p class="label">If yes</p>
+                  <p class="lede">Alert contact</p>
+                </div>
+              </li>
+            </ol>
+            <svg class="flow-loop" aria-hidden="true"><path /></svg>
+            <span class="flow-loop-label label" aria-hidden="true">if no, keep monitoring</span>
+          </div>
           <div class="clear-media">
             <figure class="pitch">
               <figcaption class="label pitch-caption">

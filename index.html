@@ -11,17 +11,41 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <header class="site-header">
+      <nav class="wrap site-nav" aria-label="Primary">
+        <a class="logo" href="./">AH.</a>
+        <div class="nav-links">
+          <div class="nav-menu">
+            <a class="label nav-link" href="#work" aria-haspopup="true">Work</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="projects/safety-bracelet/">
+                  <span class="nav-dropdown-title">Safety Bracelet</span>
+                </a>
+              </li>
+              <li>
+                <a href="projects/atlas-light-tower/">
+                  <span class="nav-dropdown-title">ATLAS Light Tower</span>
+                </a>
+              </li>
+              <li>
+                <span class="is-soon">
+                  <span class="nav-dropdown-title">Glider Design</span>
+                </span>
+              </li>
+              <li>
+                <span class="is-soon">
+                  <span class="nav-dropdown-title">ESP32 Animated Display</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <a class="label nav-link" href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
     <div class="page">
       <div class="wrap home-top">
-        <nav class="site-nav" aria-label="Primary">
-          <p class="logo">AH.</p>
-          <div class="nav-links">
-            <p class="label">Work</p>
-            <p class="label">About</p>
-            <a class="label nav-link" href="#contact">Contact</a>
-          </div>
-        </nav>
-
         <header class="hero">
           <div class="hero-copy appear">
             <p class="eyebrow">ENGINEERING × DESIGN × INNOVATION</p>
@@ -30,7 +54,7 @@
               Exploring the connection between engineering, emerging
               technology, and creative design.
             </p>
-            <p class="explore">Explore My Work</p>
+            <a class="explore" href="#work">Explore My Work</a>
           </div>
           <div class="orbit" aria-hidden="true">
             <span class="rings">
@@ -48,7 +72,7 @@
         </div>
       </div>
 
-      <main class="wrap projects">
+      <main class="wrap projects" id="work">
         <h2 class="heading">Engineering Projects</h2>
         <div class="project-grid">
           <a class="card appear" href="projects/safety-bracelet/">

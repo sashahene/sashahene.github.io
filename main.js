@@ -89,8 +89,11 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     event.preventDefault();
 
     const start = window.scrollY;
+    // Stop just below the pinned top bar so it doesn't cover the section.
+    const header = document.querySelector(".site-header");
+    const offset = header ? header.offsetHeight + 24 : 0;
     const end = Math.min(
-      target.getBoundingClientRect().top + start,
+      target.getBoundingClientRect().top + start - offset,
       document.documentElement.scrollHeight - window.innerHeight
     );
     const duration = 1400;
