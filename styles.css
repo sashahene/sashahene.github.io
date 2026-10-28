@@ -1,6 +1,24 @@
 /* Values measured from the published Framer site (sashhaportfolio1.framer.website).
    Breakpoints match Framer's: desktop >= 1200px, tablet 810-1199px, phone < 810px. */
 
+/* General Sans (Fontshare, ITF Free Font License), bundled so the site
+   has no outside dependencies. */
+@font-face {
+  font-family: "General Sans";
+  src: url("fonts/general-sans-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("fonts/general-sans-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #0b0c0e;
   --ink: #f0f0ed;
@@ -164,6 +182,12 @@ a {
   color: var(--muted);
 }
 
+/* Emphasis inside body text: brighter and slightly heavier, not bold. */
+.lede strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
 .hero-copy .lede {
   max-width: 440px;
 }
@@ -187,6 +211,16 @@ a {
 .orbit span {
   position: absolute;
   border-radius: 50%;
+}
+
+/* The three rings turn together as one piece around the chrome core,
+   which sits at 190px, 190px in the drawing. */
+
+.orbit .rings {
+  inset: 0;
+  border-radius: 0;
+  transform-origin: 190px 190px;
+  animation: orbit-spin 180s linear infinite;
 }
 
 .orbit .silver {
@@ -214,6 +248,12 @@ a {
   border: 1px solid #63676f;
 }
 
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .orbit .core {
   top: 160px;
   left: 160px;
@@ -232,8 +272,11 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit .silver {
+  .orbit span {
     animation: none;
+  }
+
+  .orbit .silver {
     opacity: 0.7;
   }
 }
@@ -294,6 +337,25 @@ a.card {
   transition: transform 0.4s ease;
 }
 
+.card-media.has-image::before {
+  content: none;
+}
+
+.card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Each card can pick which part of its image to keep in view. */
+  object-position: var(--focus, 50% 20%);
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-media img {
+  transform: scale(1.035);
+}
+
 .card-media .label {
   position: absolute;
   top: 24px;
@@ -310,7 +372,7 @@ a.card {
 .card-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .card-cta {
@@ -370,22 +432,52 @@ a.card {
   gap: 32px;
 }
 
-.media-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 32px;
-  box-shadow: inset 0 0 0 1px var(--panel-line);
-  border-radius: 20px;
-  background: var(--panel);
-  text-align: center;
-  overflow: clip;
+
+/* The header image is its own box: no frame around it, shown whole at its
+   natural shape, as wide as the page allows up to 640px tall. */
+/* A section placed inside the page header gets extra room above it. */
+.project-head > .block {
+  margin-top: 24px;
 }
 
-.render {
-  height: 520px;
+/* The date line sits close to the subtitle above it. */
+.project-head > .lede + .meta {
+  margin-top: -12px;
+}
+
+/* A small link right under a section heading sits close to it. */
+.block > .heading + .label {
+  margin-top: -20px;
+}
+
+/* Details that should always stack, even on wide screens. */
+.meta.is-stacked {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+/* A header image that links somewhere dims slightly on hover. */
+.render-link {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.render-link img {
+  transition: opacity 0.2s ease;
+}
+
+.render-link:hover img {
+  opacity: 0.85;
+}
+
+.render img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 640px;
+  border-radius: 20px;
 }
 
 .block {
@@ -394,19 +486,92 @@ a.card {
   gap: 32px;
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+/* Design Process: one compact row of steps joined by arrows. */
+
+.flow {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.step {
+.flow li {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  min-height: 120px;
-  padding: 24px 16px;
-  box-shadow: inset 0 1px 0 var(--step-line);
+  flex: 1 1 0;
+  align-items: center;
+}
+
+.flow li:last-child {
+  flex: none;
+}
+
+/* Arrow from each step to the next: a 1px line with a small chevron. */
+.flow li:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  min-width: 32px;
+  height: 10px;
+  margin: 0 12px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10'%3E%3Cpath d='M1 1l4 4-4 4' fill='none' stroke='%23999ca3' stroke-width='1'/%3E%3C/svg%3E")
+      right center / 6px 10px no-repeat,
+    linear-gradient(var(--step-line), var(--step-line)) left center / calc(100% - 1px) 1px no-repeat;
+}
+
+.flow-step {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--panel-line);
+  white-space: nowrap;
+}
+
+.flow-step .lede {
+  color: var(--ink);
+}
+
+/* The "iterate" loop under the row runs from Customer Feedback back to
+   Prototype. main.js measures the two steps and draws its path. */
+.flow-wrap {
+  position: relative;
+  padding-bottom: 44px;
+}
+
+.flow-loop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.flow-loop path {
+  fill: none;
+  stroke: var(--step-line);
+  stroke-width: 1;
+}
+
+.flow-loop-label {
+  position: absolute;
+  padding: 0 10px;
+  background: var(--bg);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+/* Column layout: the label sits beside the vertical part of the loop. */
+.flow-loop-label.is-beside {
+  padding: 0;
+  transform: translateY(-50%);
+}
+
+.flow-loop:not(.is-drawn) ~ .flow-loop-label {
+  visibility: hidden;
 }
 
 .prototype {
@@ -415,32 +580,112 @@ a.card {
   gap: 24px;
 }
 
+/* The two 3D models sit side by side, each with a small caption. */
+.model-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.model {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+}
+
 .prototype iframe {
   display: block;
   width: 100%;
-  height: 600px;
+  height: 520px;
   border: 0;
   border-radius: 20px;
   background: #000;
 }
 
-.media-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
+/* Portrait phone video: shown whole at its natural shape, like the header image. */
+.tower-video {
+  display: block;
+  align-self: flex-start;
+  width: auto;
+  max-width: 100%;
+  height: 640px;
+  aspect-ratio: 9 / 16;
+  border-radius: 20px;
+  background: #000;
 }
 
-.media-grid .media-box {
-  height: 320px;
-}
-
-.next {
+/* Clēar pitch deck, shown in the browser's PDF viewer. */
+.pitch {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 32px 0;
-  box-shadow: inset 0 1px 0 var(--panel-line);
+  gap: 12px;
+  margin: 0;
 }
+
+/* Pitch and ad sit side by side. The video sets the row's height (16:9)
+   and the pitch viewer stretches to match it. */
+.clear-media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.ad {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+}
+
+.ad video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  background: #000;
+}
+
+.pitch iframe {
+  display: block;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--panel-line);
+}
+
+.pitch-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pitch-link {
+  transition: color 0.2s ease;
+}
+
+.pitch-link:hover {
+  color: var(--ink);
+}
+
+/* Only stack the models when there's truly no room for two. */
+@media (max-width: 559.98px) {
+  .model-pair,
+  .clear-media {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pitch iframe {
+    flex: none;
+    height: 420px;
+  }
+}
+
+
+
 
 /* Tablet */
 
@@ -479,16 +724,9 @@ a.card {
     font-size: 24px;
   }
 
-  .render {
-    height: 400px;
-  }
-
-  .steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
   .prototype iframe {
-    height: 520px;
+    height: 440px;
   }
 }
 
@@ -574,21 +812,34 @@ a.card {
     gap: 12px;
   }
 
-  .render {
-    height: 300px;
+
+  .flow-wrap {
+    padding-bottom: 0;
   }
 
-  .steps {
-    grid-template-columns: minmax(0, 1fr);
+  .flow,
+  .flow li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Same arrow as the row, turned to point down. The box is laid out 28px
+     wide by 10px tall, so the vertical margins make room for it once turned. */
+  .flow li:not(:last-child)::after {
+    flex: none;
+    width: 28px;
+    min-width: 0;
+    height: 10px;
+    margin: 15px 0 15px 10px;
+    transform: rotate(90deg);
+  }
+
+  .model-pair {
     gap: 16px;
   }
 
   .prototype iframe {
-    height: 420px;
+    height: 380px;
   }
 
-  .media-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
-  }
 }

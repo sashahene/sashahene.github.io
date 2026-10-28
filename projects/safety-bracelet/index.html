@@ -8,11 +8,6 @@
       name="description"
       content="Exploring the intersection of engineering, emerging technology, and creative design."
     />
-    <link rel="preconnect" href="https://api.fontshare.com" />
-    <link
-      rel="stylesheet"
-      href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap"
-    />
     <link rel="stylesheet" href="../../styles.css" />
   </head>
   <body>
@@ -20,85 +15,145 @@
       <div class="wrap">
         <header class="project-head appear">
           <p class="label"><a class="back" href="../../">Back to portfolio</a></p>
-          <p class="label">01 / PRODUCT CONCEPT</p>
-          <h1 class="display">Safety Bracelet</h1>
+          <h1 class="display">Safety Bracelet – in works</h1>
           <p class="lede">Wearable Technology / Product Innovation</p>
           <div class="meta">
             <p class="label">2026–Present</p>
             <p class="label">Chief Technology Officer (CTO)</p>
           </div>
-          <div class="media-box render">
-            <p class="label">Product render / prototype image</p>
+          <div class="render">
+            <img
+              src="../../images/geen-3400-team.jpg"
+              alt="Illustration of the GEEN 3400 Innovation and Invention team gathered around the safety bracelet prototype, which reads ID OK."
+            />
           </div>
         </header>
 
         <section class="block appear">
           <h2 class="heading">Project Overview</h2>
           <p class="lede">
-            A wearable safety device concept exploring alcohol monitoring and
-            personal safety through sensor technology, user-centered design,
-            and connected interfaces.
+            Our mission is to create a wearable safety device, tailored to young
+            adults, in hopes that it will create a safer environment while going
+            out with friends.
           </p>
         </section>
 
         <section class="block appear">
           <h2 class="heading">Design Process</h2>
-          <div class="steps">
-            <div class="step">
-              <p class="label">01</p>
-              <p class="lede">Research</p>
-            </div>
-            <div class="step">
-              <p class="label">02</p>
-              <p class="lede">Concept Development</p>
-            </div>
-            <div class="step">
-              <p class="label">03</p>
-              <p class="lede">Prototyping</p>
-            </div>
-            <div class="step">
-              <p class="label">04</p>
-              <p class="lede">Iteration</p>
-            </div>
+          <div class="flow-wrap">
+            <ol class="flow">
+              <li>
+                <div class="flow-step">
+                  <p class="label">01</p>
+                  <p class="lede">Problem</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step">
+                  <p class="label">02</p>
+                  <p class="lede">Research</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step">
+                  <p class="label">03</p>
+                  <p class="lede">Concept</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step" data-loop="end">
+                  <p class="label">04</p>
+                  <p class="lede">Prototype</p>
+                </div>
+              </li>
+              <li>
+                <div class="flow-step" data-loop="start">
+                  <p class="label">05</p>
+                  <p class="lede">Customer Feedback</p>
+                </div>
+              </li>
+            </ol>
+            <svg class="flow-loop" aria-hidden="true"><path /></svg>
+            <span class="flow-loop-label label" aria-hidden="true">iterate</span>
           </div>
+        </section>
+
+        <section class="block appear">
+          <h2 class="heading">Research Library</h2>
+          <p class="label">
+            <a class="pitch-link" href="../../research/library/index.html#research" target="_blank" rel="noopener">Open the research library ↗</a>
+          </p>
+          <p class="lede">
+            Personally created an AI-based research library to help organize
+            the team's prototype plan.
+          </p>
         </section>
 
         <section class="block">
-          <h2 class="heading">Prototypes &amp; Interface</h2>
-          <p class="lede">Space for project materials as the concept develops.</p>
           <div class="prototype appear">
             <h2 class="heading">Initial Prototype</h2>
-            <iframe
-              src="../../models/exploded.html?embed=1"
-              title="Initial Prototype — interactive 3D model"
-              loading="lazy"
-              allow="fullscreen"
-            ></iframe>
-          </div>
-          <div class="media-grid">
-            <div class="media-box appear">
-              <p class="lede">CAD renders</p>
-              <p class="label">Editable media placeholder</p>
-            </div>
-            <div class="media-box appear">
-              <p class="lede">Interface screenshots</p>
-              <p class="label">Editable media placeholder</p>
-            </div>
-            <div class="media-box appear">
-              <p class="lede">Technical diagrams</p>
-              <p class="label">Editable media placeholder</p>
-            </div>
-            <div class="media-box appear">
-              <p class="lede">Future prototype demonstrations</p>
-              <p class="label">Editable media placeholder</p>
+            <p class="lede">
+              Our initial prototype is a wrist-worn alcohol monitor that
+              estimates blood alcohol concentration (BAC) from transdermal sweat
+              readings and automatically alerts a pre-selected emergency contact
+              when levels exceed a set threshold. I designed the interactive 3D
+              models below in three.js with Claude.
+            </p>
+            <div class="model-pair">
+              <figure class="model">
+                <figcaption class="label">Ideal model</figcaption>
+                <iframe
+                  src="../../models/exploded.html?embed=1"
+                  title="Ideal model — interactive 3D model"
+                  loading="lazy"
+                  allow="fullscreen"
+                ></iframe>
+              </figure>
+              <figure class="model">
+                <figcaption class="label">Realistic model</figcaption>
+                <iframe
+                  src="../../models/prototype.html?embed=1"
+                  title="Realistic model — interactive 3D model"
+                  loading="lazy"
+                  allow="fullscreen"
+                ></iframe>
+              </figure>
             </div>
           </div>
         </section>
 
-        <section class="next">
-          <p class="label">NEXT PROJECT</p>
-          <h2 class="heading">ATLAS Light Tower</h2>
-          <p class="label">Project page coming soon</p>
+        <section class="block appear">
+          <h2 class="heading">Clēar</h2>
+          <p class="lede">
+            Customer feedback showed our target market wasn't interested in
+            tracking their BAC, so we pivoted. Clēar is a safety- and
+            community-focused wearable that helps friends stay connected and
+            look out for each other on nights out.
+          </p>
+          <div class="clear-media">
+            <figure class="pitch">
+              <figcaption class="label pitch-caption">
+                Initial pitch
+                <a class="pitch-link" href="../../docs/clear-initial-pitch.pdf" target="_blank" rel="noopener">Open full pitch ↗</a>
+              </figcaption>
+              <iframe
+                src="../../docs/clear-initial-pitch.pdf#view=FitH&navpanes=0"
+                title="Clēar initial pitch (PDF)"
+                loading="lazy"
+              ></iframe>
+            </figure>
+            <figure class="ad">
+              <figcaption class="label">Clēar ad, personally designed in Blender / Claude MCP</figcaption>
+              <video
+                src="../../videos/clear-ad.mp4"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+            </figure>
+          </div>
         </section>
       </div>
     </main>
