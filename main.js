@@ -78,3 +78,30 @@ if (document.querySelector(".flow-wrap")) {
   window.addEventListener("resize", drawFlowLoops);
   if (document.fonts) document.fonts.ready.then(drawFlowLoops);
 }
+
+// Glide down to in-page sections (like the Contact link) instead of jumping.
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const target = document.querySelector(link.getAttribute("href"));
+    if (!target) return;
+    event.preventDefault();
+
+    const start = window.scrollY;
+    const end = Math.min(
+      target.getBoundingClientRect().top + start,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+    const duration = 1400;
+    const began = performance.now();
+
+    function step(now) {
+      const t = Math.min((now - began) / duration, 1);
+      window.scrollTo({ top: start + (end - start) * easeInOut(t), behavior: "instant" });
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+    history.replaceState(null, "", link.getAttribute("href"));
+  });
+});
