@@ -858,6 +858,10 @@ a.card {
   margin: 0;
 }
 
+.eyes-preview figcaption {
+  text-align: center;
+}
+
 /* A circle like the ESP32's round LCD, with a thin bezel ring. */
 .round-screen {
   width: 320px;
@@ -872,6 +876,7 @@ a.card {
   margin: 11px;
 }
 
+.round-screen svg,
 .round-screen video {
   display: block;
   width: 100%;

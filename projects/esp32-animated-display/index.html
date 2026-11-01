@@ -121,7 +121,7 @@
           <h2 class="heading">Animation in TouchDesigner</h2>
           <div class="td-media">
             <figure class="eyes-preview">
-              <div class="round-screen">
+              <div class="round-screen" data-eyes>
                 <video
                   src="../../videos/esp32-eyes.mp4"
                   autoplay
@@ -131,7 +131,10 @@
                   aria-label="The finished eye animation: two pink eyes that look around and blink."
                 ></video>
               </div>
-              <figcaption class="label">In works: a very simple first version of the eye design</figcaption>
+              <figcaption class="label">
+                In works: a very simple first version of the eye design<br />
+                Move your cursor and the eyes follow it.
+              </figcaption>
             </figure>
             <figure class="network-shot">
               <img
@@ -150,5 +153,6 @@
       </div>
     </main>
     <script src="../../main.js"></script>
+    <script src="../../eyes.js"></script>
   </body>
 </html>
