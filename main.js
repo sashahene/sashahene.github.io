@@ -108,3 +108,33 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     history.replaceState(null, "", link.getAttribute("href"));
   });
 });
+
+// Contact form: FormSubmit forwards messages to email. Send it in the
+// background so visitors stay on the page and see a thank-you instead.
+const contactForm = document.querySelector(".contact-form");
+if (contactForm) {
+  const status = contactForm.querySelector(".form-status");
+  const send = contactForm.querySelector(".form-send");
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    send.disabled = true;
+    status.textContent = "Sending…";
+
+    try {
+      const response = await fetch(contactForm.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(contactForm),
+      });
+      const result = await response.json();
+      if (!response.ok || String(result.success) !== "true") throw new Error(result.message);
+      contactForm.reset();
+      status.textContent = "Thanks! Your message was sent.";
+    } catch {
+      status.textContent = "Something went wrong. Please email me directly instead.";
+    } finally {
+      send.disabled = false;
+    }
+  });
+}

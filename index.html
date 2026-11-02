@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Alexandra Heneghan — Engineering &amp; Creative Technology</title>
-    <meta
-      name="description"
-      content="Exploring the intersection of engineering, emerging technology, and creative design."
-    />
+    <meta name="description" content="Aerospace engineering student at CU Boulder exploring the connection between engineering, emerging technology, and creative design." />
+    <link rel="canonical" href="https://sashahene.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Alexandra Heneghan" />
+    <meta property="og:title" content="Alexandra Heneghan — Engineering &amp; Creative Technology" />
+    <meta property="og:description" content="Aerospace engineering student at CU Boulder exploring the connection between engineering, emerging technology, and creative design." />
+    <meta property="og:url" content="https://sashahene.github.io/" />
+    <meta property="og:image" content="https://sashahene.github.io/images/og/home.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -148,6 +155,33 @@
               <a class="contact-value" href="resume/">Resume →</a>
             </div>
           </div>
+          <form
+            class="contact-form"
+            action="https://formsubmit.co/sasha1234ih@gmail.com"
+            method="POST"
+          >
+            <p class="contact-kicker">Send a message</p>
+            <label class="field">
+              <span class="contact-kicker">Name</span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+            <label class="field">
+              <span class="contact-kicker">Email</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+            <label class="field">
+              <span class="contact-kicker">Message</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+            <input type="hidden" name="_subject" value="New message from your portfolio" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" class="form-trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <div class="form-foot">
+              <button class="form-send" type="submit">Send Message</button>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
         </div>
       </section>
     </div>
