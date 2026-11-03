@@ -127,12 +127,16 @@ if (contactForm) {
         headers: { Accept: "application/json" },
         body: new FormData(contactForm),
       });
-      const result = await response.json();
-      if (!response.ok || String(result.success) !== "true") throw new Error(result.message);
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || String(result.success) !== "true") throw new Error(result.message || "");
       contactForm.reset();
       status.textContent = "Thanks! Your message was sent.";
-    } catch {
-      status.textContent = "Something went wrong. Please email me directly instead.";
+    } catch (error) {
+      // Show FormSubmit's own reason (for example, that the form still
+      // needs activating) so the problem is clear.
+      status.textContent = error.message
+        ? `Not sent: ${error.message}`
+        : "Something went wrong. Please email me directly instead.";
     } finally {
       send.disabled = false;
     }
