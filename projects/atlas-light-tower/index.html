@@ -48,27 +48,34 @@
     </header>
     <main class="project-page">
       <div class="wrap">
-        <header class="project-head appear">
-          <p class="label"><a class="back" href="../../">Back to portfolio</a></p>
-          <h1 class="display">ATLAS Light Tower</h1>
-          <p class="lede">Interactive Design / Creative Technology</p>
-          <div class="meta is-stacked">
-            <p class="label">2025–2026</p>
-          </div>
-          <div class="block">
-            <h2 class="heading">Project Overview</h2>
-            <p class="label">
-              <a class="pitch-link" href="https://www.colorado.edu/atlas/atlas-light-tower-gets-makeover" target="_blank" rel="noopener">Read about the project on the ATLAS website ↗</a>
-            </p>
-            <p class="lede">
-              Collaborated with a team of eight students to transform CU
-              Boulder's ATLAS Light Tower into an interactive, large-scale
-              lighting installation. Integrated
-              <strong>DMX lighting, creative coding, UI/UX design, and
-              audio-visual technology</strong> to create dynamic light shows
-              controlled through a web-based interface, blending engineering,
-              art, and immersive public interaction.
-            </p>
+        <header class="project-head tower-head appear">
+          <div class="tower-intro">
+            <h1 class="display">ATLAS Light Tower</h1>
+            <p class="lede">Interactive Design / Creative Technology</p>
+            <div class="meta is-stacked">
+              <p class="label">2025–2026</p>
+            </div>
+            <div class="block tower-overview">
+              <h2 class="heading">Project Overview</h2>
+              <p class="lede">
+                Collaborated with a team of eight students to transform CU
+                Boulder's ATLAS Light Tower into an interactive, large-scale
+                lighting installation, with light shows controlled through a
+                web-based interface. Lighting devices are connected via
+                <strong>DMX512</strong>, with an <strong>Art-Net
+                interface</strong> linking them to the campus network over
+                Ethernet. A <strong>Linux computer</strong> in the tower runs
+                <strong>QLC+ and xLights</strong> for lighting control, and its
+                audio runs through a Marantz AV receiver to two waterproof
+                speakers mounted outside the tower, plus a third inside for
+                monitoring. A webcam inside the tower supports show development,
+                debugging, and monitoring.
+              </p>
+              <div class="tower-links">
+                <a class="button-link" href="https://www.colorado.edu/atlas/atlas-light-tower-gets-makeover" target="_blank" rel="noopener">ATLAS article ↗</a>
+                <a class="button-link" href="https://sites.google.com/view/atlaslighttower" target="_blank" rel="noopener">Project site ↗</a>
+              </div>
+            </div>
           </div>
           <a
             class="render render-link"
@@ -83,14 +90,28 @@
           </a>
         </header>
 
-        <section class="block appear">
-          <h2 class="heading">My Personal Project</h2>
-          <p class="lede">
-            <strong>“Cornfield Chase” by Hans Zimmer</strong>, from
-            <em>Interstellar</em>, using <strong>QLC+ and DMX lighting
-            channels</strong> to control lighting effects, timing, and
-            transitions.
-          </p>
+        <section class="tower-show appear">
+          <img
+            class="tower-photo"
+            src="../../images/atlas-light-tower-fixture.jpg"
+            alt="The team standing around the lighting fixture inside the tower, with labels for its parts: ColorBlast PowerCore, EYTSE EY001-L Stage Laser, Chauvet Shocker Panel 480, Epson H345A projector, and four ENDYSHOW 240 watt 448 LED light bars."
+          />
+          <div class="block tower-details">
+            <h2 class="heading">Building the Fixture</h2>
+            <p class="lede">
+              We built the lighting fixture by combining four
+              <strong>ENDYSHOW 240-watt, 448-LED light bars</strong> with
+              <strong>Chauvet Shocker Panel 480</strong>,
+              <strong>ColorBlast PowerCore</strong>, and
+              <strong>EYTSE EY001-L stage laser</strong> fixtures and an
+              <strong>Epson H345A projector</strong>. We then mapped the
+              lighting devices to <strong>DMX512 channels</strong> and
+              programmed light shows from there in QLC+ and xLights.
+            </p>
+          </div>
+        </section>
+
+        <section class="tower-show appear">
           <video
             class="tower-video"
             src="../../videos/atlas-light-tower.mp4?v=2#t=0.1"
@@ -98,6 +119,23 @@
             playsinline
             preload="metadata"
           ></video>
+          <div class="block tower-details">
+            <h2 class="heading">My Light Show</h2>
+            <dl class="tower-facts">
+              <div>
+                <dt class="contact-kicker">Song</dt>
+                <dd>“Cornfield Chase” by Hans Zimmer, from <em>Interstellar</em></dd>
+              </div>
+              <div>
+                <dt class="contact-kicker">Tools</dt>
+                <dd>QLC+ and DMX lighting channels</dd>
+              </div>
+              <div>
+                <dt class="contact-kicker">Focus</dt>
+                <dd>Lighting effects, timing, and transitions</dd>
+              </div>
+            </dl>
+          </div>
         </section>
       </div>
     </main>

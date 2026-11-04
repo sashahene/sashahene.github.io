@@ -664,6 +664,115 @@ a {
 }
 
 /* Portrait phone video: shown whole at its natural shape, like the header image. */
+/* Light Tower: the project and poster up top, then the light show. */
+.tower-head {
+  padding-top: 24px;
+}
+
+.tower-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tower-overview {
+  margin-top: 24px;
+}
+
+.tower-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button-link {
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--muted);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  transition: box-shadow 0.2s ease;
+}
+
+.button-link:hover,
+.button-link:focus-visible {
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.tower-show {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tower-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.tower-facts {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.tower-facts > div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 20px 0;
+  box-shadow: inset 0 1px 0 var(--rule);
+}
+
+.tower-facts dd {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+@media (min-width: 1200px) {
+  .tower-head {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 64px;
+  }
+
+  .tower-intro {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tower-head .render-link {
+    flex: none;
+  }
+
+  .tower-show {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 64px;
+  }
+
+  .tower-show .tower-video {
+    flex: none;
+  }
+
+  .tower-show .tower-photo {
+    flex: none;
+    width: 62%;
+  }
+
+  .tower-details {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 .tower-video {
   display: block;
   align-self: flex-start;
@@ -937,6 +1046,8 @@ a {
 }
 
 .pitch-link {
+  font-size: 16px;
+  line-height: 1.6;
   transition: color 0.2s ease;
 }
 
