@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clēar: Simple Pull-Apart Model</title>
+<style>
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/general-sans-400.woff2") format("woff2");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/general-sans-500.woff2") format("woff2");
+  font-weight: 500;
+}
+:root {
+  --bg: #0b0c0e;
+  --ink: #f0f0ed;
+  --muted: #999ca3;
+  --line: rgba(153, 156, 163, 0.22);
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "General Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.modes { display: flex; flex-wrap: wrap; gap: 8px; }
+.modes button {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.modes button:hover { color: var(--ink); }
+.modes button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+#v {
+  flex: 1;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e8e8e4;
+  cursor: grab;
+  touch-action: none;
+}
+#v canvas { display: block; }
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--muted);
+}
+.key i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+<div class="modes" role="group" aria-label="View">
+  <button data-m="closed" aria-pressed="false">Closed</button>
+  <button data-m="see" aria-pressed="false">See inside</button>
+  <button data-m="apart" aria-pressed="true">Take apart</button>
+</div>
+<div id="v" role="img" aria-label="3D model of the Clēar bracelet taken apart, showing the battery, Bluetooth board, circuit board, accelerometer, vibration motor and heart rate sensor. Drag to rotate."></div>
+<ul class="key">
+  <li><i style="background:#b9bcc0"></i>Battery</li>
+  <li><i style="background:#2f55a4"></i>Bluetooth and microcontroller</li>
+  <li><i style="background:#1f8a5c"></i>Circuit board</li>
+  <li><i style="background:#d85a30"></i>Accelerometer</li>
+  <li><i style="background:#d9a441"></i>Vibration motor</li>
+  <li><i style="background:#7f77dd"></i>Heart rate sensor</li>
+</ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var el=document.getElementById('v');
+function W(){return el.clientWidth}
+function H(){return el.clientHeight}
+var scene=new THREE.Scene();scene.background=new THREE.Color(0xe8e8e4);
+var cam=new THREE.PerspectiveCamera(35,W()/H(),1,1000);cam.position.set(0,0,215);
+var r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(W(),H());r.outputEncoding=THREE.sRGBEncoding;el.appendChild(r.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff,0x77777a,0.85));
+var d1=new THREE.DirectionalLight(0xffffff,0.9);d1.position.set(60,120,90);scene.add(d1);
+var d2=new THREE.DirectionalLight(0xffffff,0.35);d2.position.set(-90,20,-60);scene.add(d2);
+var g=new THREE.Group();scene.add(g);g.rotation.set(0.5,-0.65,0);
+function mat(c,o){return new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:0.6,metalness:0},o||{}))}
+var black=new THREE.MeshStandardMaterial({color:0x1b1b1d,roughness:0.82,transparent:true,opacity:1});
+var bandMat=mat(0x1b1b1d,{roughness:0.88});
+function rr(l,w,rad){var s=new THREE.Shape(),x=-l/2,y=-w/2;s.moveTo(x+rad,y);s.lineTo(x+l-rad,y);s.absarc(x+l-rad,y+rad,rad,-Math.PI/2,0);s.lineTo(x+l,y+w-rad);s.absarc(x+l-rad,y+w-rad,rad,0,Math.PI/2);s.lineTo(x+rad,y+w);s.absarc(x+rad,y+w-rad,rad,Math.PI/2,Math.PI);s.lineTo(x,y+rad);s.absarc(x+rad,y+rad,rad,Math.PI,Math.PI*1.5);return s}
+function shell(y0,h,b){var geo=new THREE.ExtrudeGeometry(rr(42-2*b,24-2*b,4),{depth:h-2*b,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:6,curveSegments:16});geo.rotateX(-Math.PI/2);var m=new THREE.Mesh(geo,black);m.position.y=y0+b;return m}
+var parts=[];
+function add(mesh,lift){mesh.userData.y=mesh.position.y;mesh.userData.lift=lift;g.add(mesh);parts.push(mesh);return mesh}
+function box(l,h,w,x,y,z,c,lift,o){var m=new THREE.Mesh(new THREE.BoxGeometry(l,h,w),mat(c,o));m.position.set(x,y+h/2,z);return add(m,lift)}
+add(shell(0,4.6,0.8),0);
+add(shell(4.6,5.8,1.4),40);
+box(38,0.8,20,0,3,0,0x1f8a5c,14);
+box(20,3,14,-8.4,5,0,0xb9bcc0,29,{metalness:0.5,roughness:0.4});
+box(16,0.9,10,10.4,3.8,0,0x2f55a4,21);
+box(11,1.3,9,8.8,4.7,0,0xc9cbce,21,{metalness:0.6,roughness:0.4});
+box(2.4,1,2.4,5,3.8,-7.4,0xd85a30,21);
+box(5.6,1.55,3.3,0,1.45,0,0x7f77dd,9);
+var w=new THREE.Mesh(new THREE.BoxGeometry(8,1.6,5),mat(0xbfd4dc,{roughness:0.15,transparent:true,opacity:0.75}));w.position.set(0,0.2,0);add(w,0);
+var mot=new THREE.Mesh(new THREE.CylinderGeometry(3.175,3.175,2.7,32),mat(0xd9a441,{metalness:0.4,roughness:0.4}));mot.position.set(-13.5,2.75,0);add(mot,8);
+var pts=[new THREE.Vector3(23.4,2.6,0)];
+for(var a=62;a<=298;a+=8){var t=a*Math.PI/180;pts.push(new THREE.Vector3(31*Math.sin(t),-24+25*Math.cos(t),0))}
+pts.push(new THREE.Vector3(-23.4,2.6,0));
+var c=new THREE.CatmullRomCurve3(pts).getPoints(160),outer=[],inner=[];
+for(var i=0;i<c.length;i++){var p=c[Math.max(i-1,0)],n=c[Math.min(i+1,c.length-1)],dx=n.x-p.x,dy=n.y-p.y,L=Math.hypot(dx,dy);var nx=dy/L,ny=-dx/L;outer.push(new THREE.Vector2(c[i].x+nx,c[i].y+ny));inner.push(new THREE.Vector2(c[i].x-nx,c[i].y-ny))}
+var s=new THREE.Shape(outer.concat(inner.reverse()));
+var bg=new THREE.ExtrudeGeometry(s,{depth:18,bevelEnabled:false});bg.translate(0,0,-9);g.add(new THREE.Mesh(bg,bandMat));
+[-1,1].forEach(function(k){
+  var b=new THREE.Mesh(new THREE.CylinderGeometry(1.8,1.8,18,20),bandMat);b.rotation.x=Math.PI/2;b.position.set(k*23.4,2.6,0);g.add(b);
+  [-1,1].forEach(function(z){var e=new THREE.Mesh(new THREE.BoxGeometry(6,4,2.5),black);e.position.set(k*22.4,2.6,z*10.7);g.add(e)});
+});
+var stud=new THREE.Mesh(new THREE.CylinderGeometry(2.1,2.1,1,24),mat(0x111113));stud.position.set(4,-47.4,0);g.add(stud);
+var keep=new THREE.Mesh(new THREE.BoxGeometry(5,3.6,20),bandMat);keep.position.set(-12,-47.2,0);g.add(keep);
+// Opens taken apart, since that's the view this page is for.
+var mode='apart',ex=1,op=1,down=false,px=0,py=0,spin=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+var btns=document.querySelectorAll('.modes button');
+btns.forEach(function(b){b.addEventListener('click',function(){mode=b.dataset.m;btns.forEach(function(o){o.setAttribute('aria-pressed',o===b)})})});
+el.addEventListener('pointerdown',function(e){down=true;spin=false;px=e.clientX;py=e.clientY;el.style.cursor='grabbing';el.setPointerCapture(e.pointerId)});
+el.addEventListener('pointermove',function(e){if(!down)return;g.rotation.y+=(e.clientX-px)*0.01;g.rotation.x=Math.max(-1.3,Math.min(1.3,g.rotation.x+(e.clientY-py)*0.01));px=e.clientX;py=e.clientY});
+el.addEventListener('pointerup',function(){down=false;el.style.cursor='grab'});
+addEventListener('resize',function(){cam.aspect=W()/H();cam.updateProjectionMatrix();r.setSize(W(),H())});
+function tick(){requestAnimationFrame(tick);
+  ex+=((mode==='apart'?1:0)-ex)*0.08;op+=((mode==='closed'?1:(mode==='see'?0.2:1))-op)*0.1;
+  black.opacity=op;black.depthWrite=op>0.9;
+  parts.forEach(function(m){m.position.y=m.userData.y+m.userData.lift*ex});
+  g.position.y=20-22*ex;
+  if(spin)g.rotation.y+=0.003;
+  r.render(scene,cam)}
+tick();
+})();
+</script>
+</body>
+</html>
